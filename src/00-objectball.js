@@ -126,10 +126,11 @@ function gameObject () {
 console.log(gameObject());
 
 //Build a function, numPointsScored that takes in an argument of a player's name and returns the number of points scored for that player.
-function numPointsScored() {
-    return gameObject().home.players["Alan Anderson"]["points"];
-  }
-  console.log(numPointsScored());
+function numPointsScored(playerName) {
+  return gameObject().home.players[playerName]["points"];
+}
+
+console.log(numPointsScored("Alan Anderson"));
   
 //Build a function, shoeSize, that takes in an argument of a player's name and returns the shoe size for that player.
 function shoeSize(playerName) {
@@ -209,6 +210,6 @@ function playerStats(name) {
 console.log(playerStats("Alan Anderson"));
 
 
-function bigShoeRebounds(){
+// function bigShoeRebounds(){
 
-};
+// };
