@@ -1,7 +1,7 @@
 function gameObject () {
     return {home: {
         teamName: "Brooklyn Nets",
-        colors: ["Black", "White"],
+        colors: ["Black", " White"],
         players: {
             "Alan Anderson": {
                 "number":0,
@@ -62,7 +62,7 @@ function gameObject () {
 
     away: {
         teamName: "Charlotte Hornets",
-        colors: ["Turquoise", "Purple"],
+        colors: ["Turquoise", " Purple"],
         players: {
             "Jeff Adrien": {
                 "number":4,
@@ -125,32 +125,19 @@ function gameObject () {
 
 console.log(gameObject());
 
-// function homeTeamName() {
-//     let object = gameObject();
-//     return object["home"]["teamName"];
-//   }
-  
-//   console.log(homeTeamName());
-  //good idea to save results from functions into variables
-
-//   function homeTeamName() {
-//     return gameObject()["home"]["teamName"];
-//   }
-  
-//   console.log(homeTeamName());
-  // logs "Brooklyn Nets"
-
+//Build a function, numPointsScored that takes in an argument of a player's name and returns the number of points scored for that player.
 function numPointsScored() {
     return gameObject().home.players["Alan Anderson"]["points"];
   }
   console.log(numPointsScored());
   
+//Build a function, shoeSize, that takes in an argument of a player's name and returns the shoe size for that player.
 function shoeSize(playerName) {
     return gameObject().home.players[playerName]["shoe"]
   }
   console.log(shoeSize("Alan Anderson"));
 
-
+//Build a function, teamColors, that takes in an argument of the team name and returns an array of that teams colors.
 function teamColors(team) {
     if (team === "home") {
       return gameObject().home.colors;
@@ -161,40 +148,67 @@ function teamColors(team) {
     }
   }
 
-  console.log(teamColors("home")); 
-  console.log(teamColors("away"));
+  console.log(console.log("Home colors: " + teamColors("home"))); 
+  console.log(console.log("Away colors: " + teamColors("away")));
+
+//Build a function, teamNames, that operates on the game object to return an array of the team names.
+// function teamNames(names) {
+
+// }
 
 
-
-
-  function teamName(name) {
-    let players = [];
+// Build a function, playerNumbers, that takes in an argument of a team name and returns an array of the jersey numbers for that team.
+  function playerNumbers(teamName) {
+    let teamObject;
   
-    if (name === "home") {
-      players = Object.keys(gameObject.home.players);
-      return players;
-    } else if (name === "away") {
-      players = Object.keys(gameObject.away.players);
-      return players;
+    if (teamName === "home") {
+      teamObject = gameObject().home;
+    } else if (teamName === "away") {
+      teamObject = gameObject().away;
     } else {
       return [];
     }
-}
-console.log(teamName("home"));
   
-//   function teamName(name) {
-//     let players = [];
-    
-//     if (name === "home") {
-//         players.push(gameObject.home.players.keys());
-//         return playersd
-//       } else if (name === "away") {
-//         players.push(gameObject.away.players.push(keys()));
-//         return gameObject().away.players;
-//       } else {
-//         return [];
-//       }
-      
-// }
- 
-// console.log(teamName("home")); 
+    let players = Object.keys(teamObject.players);
+    let jerseyNumbers = [];
+  
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      jerseyNumbers.push(teamObject.players[player].number);
+    }
+  
+    return jerseyNumbers;
+  }
+  
+  console.log("Home jersey numbers: " + playerNumbers("home"));
+  console.log("Away jersey numbers: " + playerNumbers("away"));
+  
+
+  // Build a function, playerStats, that takes in an argument of a player's name and returns an object of that player's stats. 
+function playerStats(name) {
+
+  const homeTeam = gameObject().home.players;
+  const awayTeam = gameObject().away.players;
+
+  // Search for the player in the home team
+  for (let player in homeTeam) {
+    if (player === name) {
+      return homeTeam[player];
+    }
+  }
+
+  // Search for the player in the away team
+  for (let player in awayTeam) {
+    if (player === name) {
+      return awayTeam[player];
+    }
+  }
+  // Player not found
+  return null;
+}
+console.log(playerStats("Alan Anderson"));
+
+
+function bigShoeRebounds(){
+
+};
