@@ -125,18 +125,20 @@ function gameObject () {
 
 console.log(gameObject());
 
+
+
 //Build a function, numPointsScored that takes in an argument of a player's name and returns the number of points scored for that player.
 function numPointsScored(playerName) {
   return gameObject().home.players[playerName]["points"];
 }
 
-console.log(numPointsScored("Alan Anderson"));
+// console.log("Number of points scored: " + numPointsScored("Alan Anderson"));
   
 //Build a function, shoeSize, that takes in an argument of a player's name and returns the shoe size for that player.
 function shoeSize(playerName) {
     return gameObject().home.players[playerName]["shoe"]
   }
-  console.log(shoeSize("Alan Anderson"));
+  console.log("Shoe Size: " + shoeSize("Alan Anderson"));
 
 //Build a function, teamColors, that takes in an argument of the team name and returns an array of that teams colors.
 function teamColors(team) {
@@ -149,16 +151,24 @@ function teamColors(team) {
     }
   }
 
-  console.log(console.log("Home colors: " + teamColors("home"))); 
-  console.log(console.log("Away colors: " + teamColors("away")));
+console.log("Home colors: " + teamColors("home")); 
+console.log("Away colors: " + teamColors("away"));
 
 //Build a function, teamNames, that operates on the game object to return an array of the team names.
-// function teamNames(names) {
+function teamsArray() {
+  let object = gameObject();
+  let teams = [];
 
-// }
+  teams.push(object["home"]["teamName"]);
+  teams.push(object["away"]["teamName"]);
+
+  return teams;
+}
+
+console.log(teamsArray());
 
 
-// Build a function, playerNumbers, that takes in an argument of a team name and returns an array of the jersey numbers for that team.
+// // Build a function, playerNumbers, that takes in an argument of a team name and returns an array of the jersey numbers for that team.
   function playerNumbers(teamName) {
     let teamObject;
   
@@ -186,30 +196,84 @@ function teamColors(team) {
   
 
   // Build a function, playerStats, that takes in an argument of a player's name and returns an object of that player's stats. 
-function playerStats(name) {
-
-  const homeTeam = gameObject().home.players;
-  const awayTeam = gameObject().away.players;
-
-  // Search for the player in the home team
-  for (let player in homeTeam) {
-    if (player === name) {
-      return homeTeam[player];
+  const playerStats = (playerName) => {
+    // Call the gameObject function to get the game data
+    const gameData = gameObject();
+    // Check if the player is in the home team
+    if (gameData.home.players.hasOwnProperty(playerName)) {
+      const playerStats = gameData.home.players[playerName];
+      return playerStats;
     }
-  }
-
-  // Search for the player in the away team
-  for (let player in awayTeam) {
-    if (player === name) {
-      return awayTeam[player];
+    // Check if the player is in the away team
+    if (gameData.away.players.hasOwnProperty(playerName)) {
+      const playerStats = gameData.away.players[playerName];
+      return playerStats;
     }
-  }
-  // Player not found
-  return null;
+    // Player not found
+    return null;
+  };
+  const stats = playerStats("Alan Anderson");
+  console.log(stats);
+
+
+// Build a function, bigShoeRebounds, that will return the number of rebounds associated with the player that has the largest shoe size.
+// function getPlayerWithMostRebounds(gameObj) {
+//   let playerWithMostRebounds = null;
+//   let maxRebounds = 0;
+
+//   // Iterate through home players
+//   Object.values(gameObj.home.players).forEach(player => {
+//     if (player.rebounds > maxRebounds) {
+//       maxRebounds = player.rebounds;
+//       playerWithMostRebounds = player;
+//     }
+//   });
+
+//   // Iterate through away players
+//   Object.values(gameObj.away.players).forEach(player => {
+//     if (player.rebounds > maxRebounds) {
+//       maxRebounds = player.rebounds;
+//       playerWithMostRebounds = player;
+//     }
+//   });
+
+//   return playerWithMostRebounds;
+// }
+
+// // Example usage
+// const game = gameObject(); // Assume gameObject function returns the game object
+// const player = getPlayerWithMostRebounds(game);
+// console.log(player);
+
+function getPlayerWithMostRebounds(gameObj) {
+  let playerWithMostRebounds = null;
+  let maxRebounds = 0;
+
+  // Iterate through home players
+  Object.values(gameObj.home.players).forEach(player => {
+    if (player.rebounds > maxRebounds) {
+      maxRebounds = player.rebounds;
+      playerWithMostRebounds = player;
+    }
+  });
+
+  // Iterate through away players
+  Object.values(gameObj.away.players).forEach(player => {
+    if (player.rebounds > maxRebounds) {
+      maxRebounds = player.rebounds;
+      playerWithMostRebounds = player;
+    }
+  });
+
+  // Return an object with player's name and shoe size
+  return {
+    player: playerWithMostRebounds,
+    shoe: playerWithMostRebounds.shoe
+  };
 }
-console.log(playerStats("Alan Anderson"));
 
-
-// function bigShoeRebounds(){
-
-// };
+// Example usage
+const game = gameObject(); // Assume gameObject function returns the game object
+const { player, shoe } = getPlayerWithMostRebounds(game);
+console.log(player); // Output: The player object with the most rebounds
+console.log("Shoe size of the player with the most rebounds: " + shoe); // Output: The shoe size of the player with the most rebounds
